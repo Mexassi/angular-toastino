@@ -1,6 +1,5 @@
 'use strict';
 var gulp = require('gulp');
-var $ = require('gulp-load-plugins')();
 var requireDir = require('require-dir');
 // load tasks
 
@@ -12,5 +11,7 @@ gulp.paths = {
 };
 
 requireDir('./gulp-tasks');
+
+gulp.task('build', ['test', 'jshint']);
 
 gulp.task('default', ['uglify']);
