@@ -4,6 +4,7 @@ var gulp = require('gulp'),
 
 gulp.task('uglify', function () {
     gulp.src('src/**/*.js')
+    .pipe($.rename({suffix:'.min'}))
     .pipe($.uglify())
     .pipe(gulp.dest('build'));
 });
