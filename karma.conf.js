@@ -15,8 +15,10 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      __dirname + '/src/**/*.js',
-      __dirname + '/test/angular-toastino-spec.js'
+      __dirname + '/bower_components/angular/angular.js',
+      __dirname + '/bower_components/angular-mocks/angular-mocks.js',
+      __dirname + '/test/angular-toastino-spec.js',
+      __dirname + '/src/**/*.js'
     ],
 
 

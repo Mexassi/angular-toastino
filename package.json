@@ -32,6 +32,7 @@
     "karma-phantomjs2-launcher": "^0.3.2",
     "karma-spec-reporter": "0.0.21",
     "phantomjs": "^1.9.18",
-    "require-dir": "^0.3.0"
+    "require-dir": "^0.3.0",
+    "requirejs": "^2.1.20"
   }
 }
