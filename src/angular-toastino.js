@@ -6,7 +6,7 @@
 */
 
 'use strict';
-//  var angular = '/bower_components/angular/angular.min.js';
+
 var toastino = angular.module('mexassi.toastino',[]);
 
 toastino.factory('Toastino', function ($timeout) {
@@ -63,9 +63,7 @@ toastino.directive('toastino', function (Toastino) {
   return {
     restrict: 'EA',
     compile: function (tElement, tAttrs, transclude) {
-      // var toast = tAttrs.toast;
-      var toast = new Toastino('ts-warning', 'ts-top-left');
-      toast.setMessage('You cannot add this code: the code is already in the selected area')
+      var toast = tAttrs.toast;
       if (toast === null) {
         tElement.html('');
       } else {
