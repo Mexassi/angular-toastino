@@ -16,7 +16,7 @@ gulp.paths = {
 
 requireDir('./gulp-tasks');
 
-gulp.task('build', ['test', 'jshint']);
+gulp.task('build', ['test', 'jshint', 'uglify', 'styles']);
 
 gulp.task('inject', function () {
   var target = gulp.src('./src/index.html');
