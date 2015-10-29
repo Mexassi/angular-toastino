@@ -1,6 +1,6 @@
 {
   "name": "angular-toastino",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "create custom toast messages",
   "main": "angular-toastino.js",
   "scripts": {
