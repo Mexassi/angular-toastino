@@ -1,5 +1,5 @@
 /*!
-* angular-toastino v0.0.1
+* angular-toastino v1.0.1
 * https://github.com/Mexassi/angular-toastino
 * Copyright (c) 2015 Massimo Presta
 * License: MIT
@@ -14,9 +14,9 @@ toastino.factory('Toastino', function ($timeout) {
     this.message = '';
     this.classValue = classValue;
     this.position = position;
-    this.autoDismiss = true;
-    this.delay = 2700;
-    this.setClass();
+    this.className = null;
+    this.autoDismiss = false;
+    this.delay = 3700;
   };
 
   Toastino.prototype.manualDismiss = function () {
@@ -24,15 +24,17 @@ toastino.factory('Toastino', function ($timeout) {
   };
 
   Toastino.prototype.setClass = function () {
-    this.classValue = (this.position !== undefined && this.position !== null) ? this.classValue + ' ' + this.position : this.classValue;
+    this.className = (this.position !== undefined && this.position !== null) ? this.classValue + ' ' + this.position : this.classValue;
   };
 
   Toastino.prototype.setMessage = function (message) {
+    this.setClass();
     this.message = message;
     this.close();
   };
 
   Toastino.prototype.close = function () {
+      console.log(this.autoDismiss);
     if (this.autoDismiss) {
       var self = this;
       $timeout(function () {
@@ -46,7 +48,7 @@ toastino.factory('Toastino', function ($timeout) {
   };
 
   Toastino.prototype.dismiss = function () {
-    this.classValue += ' ' + Toastino.DISMISS;
+    this.className += ' ' + Toastino.DISMISS;
   };
 
   Toastino.DISMISS = 'ts-dismiss';
@@ -55,21 +57,44 @@ toastino.factory('Toastino', function ($timeout) {
 });
 
 toastino.directive('toastino', function (Toastino) {
-  var template = '<div class="{{toast.classValue}}">' +
-  '<span>{{toast.message}}' +
-  '<button class="ts-button" ng-click="toast.dismiss()">x</button>' +
-  '</span>' +
-  '</div>';
   return {
     restrict: 'EA',
     compile: function (tElement, tAttrs, transclude) {
-      var toast = tAttrs.toast;
-      if (toast === null) {
+        var attributes = ['toastino', 'position', 'message', 'dismiss'];
+        function _validateAttributes() {
+            for (var i = 0; i < attributes.length; i++) {
+                if (tAttrs[attributes[i]] === undefined) {
+                    throw new TypeError('Missing required attribute: ' + attributes[i]);
+                }
+            }
+        }
+        _validateAttributes();
+        var className = tAttrs.toastino;
+        var position = tAttrs.position;
+        var message = tAttrs.message;
+        var autoDismiss = tAttrs.dismiss;
+        var toast = new Toastino(className, position);
+        toast.autoDismiss = (autoDismiss === 'true');
+        toast.setMessage(message);
+      if (toast.message === '') {
         tElement.html('');
       } else {
-        tElement.html(template);
+        tElement.html('<div class="{{toast.className}}">' +
+        '<span ng-bind="'+message+'"></span>' +
+        '<button class="ts-button" ng-click="toast.dismiss()">x</button>' +
+        '</div>');
       }
       return function (scope, element, attrs) {
+        scope.setMessage = function () {
+          scope.message = 'new notification at: ' + new Date();
+        };
+        scope.message = ' Hello I am Angular-toastino!';
+          attrs.$observe('message', function (value) {
+             message = value;
+          });
+             scope.$watch(message, function() {
+                toast.setMessage(message);
+            }, true);
         if (toast instanceof Toastino || toast === null) {
           scope.toast = toast;
         } else {

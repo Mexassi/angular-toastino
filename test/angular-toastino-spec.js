@@ -18,7 +18,8 @@ describe('Angular Toastino', function () {
 
     it('should set the class value with the position when defined', function () {
       var toast = new Toastino('warning', 'ts-top-right');
-      expect(toast.classValue).toBe('warning ts-top-right');
+      toast.setMessage('');
+      expect(toast.className).toBe('warning ts-top-right');
     });
 
     it('should clear the message value', function () {
@@ -31,10 +32,11 @@ describe('Angular Toastino', function () {
 
     it('should auto dismiss the toast', function () {
       var toast = new Toastino('default', 'ts-center');
+      toast.autoDismiss = true;
       toast.setMessage('default');
-      expect(toast.classValue).toBe('default ts-center');
+      expect(toast.className).toBe('default ts-center');
       $timeout.flush();
-      expect(toast.classValue).toContain(Toastino.DISMISS);
+      expect(toast.className).toContain(Toastino.DISMISS);
     });
 
     it('should manually dismiss a toast', function () {
@@ -42,11 +44,11 @@ describe('Angular Toastino', function () {
       spyOn(toast, 'close');
       toast.manualDismiss();
       toast.setMessage('default');
-      expect(toast.classValue).toBe('default ts-top-right');
+      expect(toast.className).toBe('default ts-top-right');
       expect(toast.close).toHaveBeenCalled();
-      expect(toast.classValue).toBe('default ts-top-right');
+      expect(toast.className).toBe('default ts-top-right');
       toast.dismiss();
-      expect(toast.classValue).toContain(Toastino.DISMISS);
+      expect(toast.className).toContain(Toastino.DISMISS);
     });
   });
 
@@ -54,5 +56,40 @@ describe('Angular Toastino', function () {
     it('should test the directive', function () {
 
     });
+  });
+
+  xdescribe('toastinoService', function () {
+    var Toastino, toastinoService, $timeout;
+
+    beforeEach(module('mexassi.toastino'));
+
+    beforeEach(inject(function(_toastinoService_, _$timeout_, _Toastino_) {
+        Toastino = _Toastino_;
+        $timeout = _$timeout_;
+        toastinoService = _toastinoService_;
+    }));
+
+    it('should have an empty array of toastino messages when on init', function () {
+      expect(toastinoService.toastinos.length).toBe(0);
+    });
+
+    it('should add a new Toastino to the array', function() {
+      var toastino = new Toastino('ts-default', 'ts-top-right');
+      toastino.autoDelay = false;
+      toastino.setMessage('message');
+      toastinoService.add(toastino);
+      expect(toastinoService.toastinos.length).toBe(1);
+    });
+
+    it('should remove a toastino from the list when it has been dismissed', function () {
+      var toastino = new Toastino('ts-default', 'ts-top-right');
+      toastino.autoDelay = false;
+      toastino.setMessage('message');
+      toastinoService.add(toastino);
+      expect(toastinoService.toastinos.length).toBe(1);
+      toastino.dismiss();
+      expect(toastinoService.toastinos.length).toBe(0);
+    });
+
   });
 });

@@ -4,5 +4,9 @@
 <!-- endinject -->
 <link rel="stylesheet" href="/styles.css" media="screen" title="no title" charset="utf-8">
 <div class="" ng-app="mexassi.toastino">
-  <toastino toast="message"></toastino>
+  <toastino toastino="ts-default"
+            position="ts-top-right"
+            message="message"
+            dismiss="true"></toastino>
+<button ng-click="setMessage()">trigger</button>
 </div>
