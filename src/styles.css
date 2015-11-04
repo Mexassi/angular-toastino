@@ -188,7 +188,7 @@
   z-index: 9000; }
   .ts-toastino span, .ts-danger span, .ts-warning span, .ts-success span, .ts-default span, .ts-dismiss span {
     display: inline-block;
-    max-width: 85%;
+    max-width: 90%;
     text-align: center; }
 
 .ts-danger {

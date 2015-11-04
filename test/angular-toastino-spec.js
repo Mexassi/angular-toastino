@@ -8,22 +8,21 @@ describe('Angular Toastino', function () {
         $timeout = _$timeout_;
     }));
 
-    it('should init a new toastino with an undefined position', function () {
+    it('should init a new toastino', function () {
       var toast = new Toastino('danger');
       toast.setMessage('I am toastino!');
       expect(toast.message).toBeDefined();
-      expect(toast.position).toBe(undefined);
       expect(toast.message).toBe('I am toastino!');
     });
 
     it('should set the class value with the position when defined', function () {
-      var toast = new Toastino('warning', 'ts-top-right');
+      var toast = new Toastino('warning');
       toast.setMessage('');
       expect(toast.className).toBe('warning ts-top-right');
     });
 
     it('should clear the message value', function () {
-      var toast = new Toastino('success', 'ts-bottom-left');
+      var toast = new Toastino('success');
       toast.setMessage('success');
       expect(toast.message).toBe('success');
       toast.clearMessage();
@@ -31,22 +30,22 @@ describe('Angular Toastino', function () {
     });
 
     it('should auto dismiss the toast', function () {
-      var toast = new Toastino('default', 'ts-center');
+      var toast = new Toastino('default');
       toast.autoDismiss = true;
       toast.setMessage('default');
-      expect(toast.className).toBe('default ts-center');
+      expect(toast.className).toContain('default');
       $timeout.flush();
       expect(toast.className).toContain(Toastino.DISMISS);
     });
 
     it('should manually dismiss a toast', function () {
-      var toast = new Toastino('default', 'ts-top-right');
+      var toast = new Toastino('default');
       spyOn(toast, 'close');
       toast.manualDismiss();
       toast.setMessage('default');
-      expect(toast.className).toBe('default ts-top-right');
+      expect(toast.className).toContain('default');
       expect(toast.close).toHaveBeenCalled();
-      expect(toast.className).toBe('default ts-top-right');
+      expect(toast.className).toContain('default');
       toast.dismiss();
       expect(toast.className).toContain(Toastino.DISMISS);
     });
@@ -70,14 +69,14 @@ describe('Angular Toastino', function () {
 
     it('should create the tostino object if the parameter has the necessary properties', function() {
       spyOn(toastinoService, 'buildToastino');
-      var object = {classValue: 'ts-default', position: 'ts-top-right', message:'bla'};
+      var object = {classValue: 'ts-default', message:'bla'};
       toastinoService.setToastino(object);
       expect(toastinoService.buildToastino).toHaveBeenCalled();
     });
 
     it('should build a toastino and add it to the toastinoMessages array', function () {
       expect(toastinoService.toastinoMessages.length).toBe(0);
-      var object = {classValue: 'ts-default', position: 'ts-top-right', message:'bla'};
+      var object = {classValue: 'ts-default', message:'bla'};
       toastinoService.buildToastino(object);
       expect(toastinoService.toastinoMessages.length).toBe(1);
       expect(toastinoService.toastinoMessages[0].message).toEqual(object.message);

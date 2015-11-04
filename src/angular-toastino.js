@@ -1,5 +1,5 @@
 /*!
-* angular-toastino v1.0.1
+* angular-toastino v1.0.3
 * https://github.com/Mexassi/angular-toastino
 * Copyright (c) 2015 Massimo Presta
 * License: MIT
@@ -10,10 +10,10 @@
 var toastino = angular.module('mexassi.toastino',[]);
 
 toastino.factory('Toastino', function ($timeout) {
-  var Toastino = function (classValue, position) {
+  var Toastino = function (classValue) {
     this.message = '';
     this.classValue = classValue;
-    this.position = position;
+    this.position = 'ts-top-right';
     this.className = null;
     this.autoDismiss = false;
     this.delay = 3700;
@@ -102,10 +102,10 @@ toastino.factory('toastinoService', function(Toastino) {
   };
 
   ToastinoService.prototype.setToastino = function (object) {
-    if (object.classValue !== undefined && object.position !== undefined && object.message !== undefined) {
+    if (object.classValue !== undefined && object.message !== undefined) {
       this.buildToastino(object);
     } else {
-      throw new TypeError('The object must have properties: classValue, position, message');
+      throw new TypeError('The object must have properties: classValue, message');
     }
   };
 
@@ -146,7 +146,6 @@ toastino.controller('toastinoCtrl', function (toastinoService, $scope) {
   $scope.createToastino = function () {
     var object = {
       classValue: classValues[$scope.randomNumber() - 1],
-      position: 'ts-top-right',
       message: messages[$scope.randomNumber() - 1],
       autoDismiss: true
     };
