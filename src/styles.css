@@ -188,7 +188,8 @@
   z-index: 9000; }
   .ts-toastino span, .ts-danger span, .ts-warning span, .ts-success span, .ts-default span, .ts-dismiss span {
     display: inline-block;
-    max-width: 85%; }
+    max-width: 85%;
+    text-align: center; }
 
 .ts-danger {
   border: 1px solid #be070f;
@@ -253,3 +254,12 @@
 
 .ts-remove {
   display: none; }
+
+.ts-trigger-btn {
+  padding: 10px;
+  background: ghostwhite;
+  border: 1px solid gray;
+  width: 90px;
+  cursor: pointer; }
+  .ts-trigger-btn:hover {
+    background: #24e9ff; }

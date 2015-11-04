@@ -75,6 +75,13 @@ describe('Angular Toastino', function () {
       expect(toastinoService.buildToastino).toHaveBeenCalled();
     });
 
+    it('should build a toastino and add it to the toastinoMessages array', function () {
+      expect(toastinoService.toastinoMessages.length).toBe(0);
+      var object = {classValue: 'ts-default', position: 'ts-top-right', message:'bla'};
+      toastinoService.buildToastino(object);
+      expect(toastinoService.toastinoMessages.length).toBe(1);
+      expect(toastinoService.toastinoMessages[0].message).toEqual(object.message);
+    });
 
   });
 });

@@ -45,7 +45,6 @@ toastino.factory('Toastino', function ($timeout) {
   };
 
   Toastino.prototype.close = function () {
-      console.log(this.autoDismiss);
     if (this.autoDismiss) {
       var self = this;
       $timeout(function () {
@@ -61,8 +60,9 @@ toastino.factory('Toastino', function ($timeout) {
   Toastino.prototype.dismiss = function () {
     this.className += ' ' + Toastino.DISMISS;
     var self = this;
+    //remove item from array after dismiss css animation ends -> 350ms
     $timeout(function () {
-    self.broadcastChanges(this);
+      self.broadcastChanges(this);
     }, 350);
   };
 
@@ -73,7 +73,6 @@ toastino.factory('Toastino', function ($timeout) {
 
 toastino.factory('toastinoService', function(Toastino) {
   var ToastinoService = function () {
-    //array of toastino
     this.toastinoMessages = [];
   };
 
@@ -130,7 +129,6 @@ toastino.directive('toastino', function () {
 });
 
 toastino.controller('toastinoCtrl', function (toastinoService, $scope) {
-  var vm = this;
   $scope.toastMessages = toastinoService.toastinoMessages;
   var classValues = ['ts-default', 'ts-success', 'ts-danger', 'ts-warning'];
   var messages = [
@@ -153,6 +151,5 @@ toastino.controller('toastinoCtrl', function (toastinoService, $scope) {
       autoDismiss: true
     };
     toastinoService.setToastino(object);
-    console.warn($scope.toastMessages);
   };
 });

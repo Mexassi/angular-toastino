@@ -240,6 +240,7 @@ $percentage: 20%;
   span {
     display: inline-block;
     max-width: 85%;
+    text-align: center;
   }
 }
 
@@ -327,3 +328,14 @@ $percentage: 20%;
 .ts-remove {
   display: none;
 }
+
+.ts-trigger-btn {
+  padding: 10px;
+  background: ghostwhite;
+  border: 1px solid gray;
+  width: 90px;
+  cursor: pointer;
+  &:hover {
+    background: darken($ts-default, $percentage);
+  }
+};

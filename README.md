@@ -4,35 +4,42 @@ Create custom toast messages for your angular app
 ```sh
 $ bower install angular-toastino --save
 ```
+Include the css file and the module in your app:
+```js
+var myApp = angular.module('myApp', ['mexassi.toastino']);
+```
 ## How to use it
+Inject toastino service into your controller and set the array of toast messages:
+```js
+myApp.controller('myController', function($scope, toastinoService) {
+  $scope.toastinoMessages = toastinoService.toastinoMessages;
+});
+```
+Create a toastino message by calling the set method passing an anonymous object:
+```js
+var object = {
+  classValue: 'ts-default',
+  message: 'New notification',
+  autoDismiss: true
+};
+
+toastinoService.setToastino(object);
+```
+The classValue and message properties are required; the autoDismiss property is optional, it is set to false by default.
+
 Pass the parameters into the directive as in the example:
 
 ```html
-<toastino toastino="ts-default"
-          dismiss="false"
-          position="ts-top-right"
-          message="toastinoMessage"></toastino>
+<div ng-app="myApp" ng-controller="myController">
+  <toastino toastinos="toastinoMessages"></toastino>
+</div>
 ```
-- toastino: is the default class type for the toast message.
-- dismiss: pass false to manual dismiss the toast message or leave it empty.
-- position: class name for the position.
-- message: the variable that holds the message.
-
-The message is bind to the directive so you just need to change it when you want to create .
-
-### Available css classes
+## Available css classes
 
 - ts-success
 - ts-warning
 - ts-danger
 - ts-default
 
-### Available position values
-
-- ts-top-left
-- ts-top-middle
-- ts-top-right
-- ts-middle
-- ts-bottom-left
-- ts-bottom-middle
-- ts-bottom-right
+**LICENSE**
+MIT
