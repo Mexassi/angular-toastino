@@ -85,12 +85,15 @@
 @keyframes bounceOut {
   0% {
     opacity: 1;
+    display: block;
     transform: scaleX(1) scaleY(1); }
   25% {
     opacity: 1;
+    display: block;
     transform: scaleX(0.95) scaleY(0.95); }
   50% {
     opacity: 1;
+    display: block;
     transform: scaleX(1.1) scaleY(1.1); }
   100% {
     opacity: 0;
@@ -99,12 +102,15 @@
 @-moz-keyframes bounceOut {
   0% {
     opacity: 1;
+    display: block;
     -moz-transform: scaleX(1) scaleY(1); }
   25% {
     opacity: 1;
+    display: block;
     -moz-transform: scaleX(0.95) scaleY(0.95); }
   50% {
     opacity: 1;
+    display: block;
     -moz-transform: scaleX(1.1) scaleY(1.1); }
   100% {
     opacity: 0;
@@ -113,12 +119,15 @@
 @-webkit-keyframes bounceOut {
   0% {
     opacity: 1;
+    display: block;
     -webkit-transform: scaleX(1) scaleY(1); }
   25% {
     opacity: 1;
+    display: block;
     -webkit-transform: scaleX(0.95) scaleY(0.95); }
   50% {
     opacity: 1;
+    display: block;
     -webkit-transform: scaleX(1.1) scaleY(1.1); }
   100% {
     opacity: 0;
@@ -127,12 +136,15 @@
 @-o-keyframes bounceOut {
   0% {
     opacity: 1;
+    display: block;
     -o-transform: scaleX(1) scaleY(1); }
   25% {
     opacity: 1;
+    display: block;
     -o-transform: scaleX(0.95) scaleY(0.95); }
   50% {
     opacity: 1;
+    display: block;
     -o-transform: scaleX(1.1) scaleY(1.1); }
   100% {
     opacity: 0;
@@ -141,24 +153,42 @@
 @-ms-keyframes bounceOut {
   0% {
     opacity: 1;
+    display: block;
     -ms-transform: scaleX(1) scaleY(1); }
   25% {
     opacity: 1;
+    display: block;
     -ms-transform: scaleX(0.95) scaleY(0.95); }
   50% {
     opacity: 1;
+    display: block;
     -ms-transform: scaleX(1.1) scaleY(1.1); }
   100% {
     opacity: 0;
     -ms-transform: scaleX(0.3) scaleY(0.3); } }
 
+.ts-container {
+  position: relative;
+  float: right;
+  right: 0px;
+  z-index: 7500;
+  max-width: 390px;
+  padding: 5px;
+  text-align: right; }
+
 .ts-toastino, .ts-danger, .ts-warning, .ts-success, .ts-default, .ts-dismiss {
+  text-align: right;
   font-family: Helvetica;
   font-weight: 200;
   border-radius: 3px;
   padding: 15px;
-  position: fixed;
-  z-index: 5000; }
+  display: inline-block;
+  margin: 5px;
+  position: relative;
+  z-index: 9000; }
+  .ts-toastino span, .ts-danger span, .ts-warning span, .ts-success span, .ts-default span, .ts-dismiss span {
+    display: inline-block;
+    max-width: 85%; }
 
 .ts-danger {
   border: 1px solid #be070f;
@@ -186,7 +216,9 @@
   outline: none;
   border: 1px solid black;
   background: inherit;
-  cursor: pointer; }
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: top; }
   .ts-button:hover {
     background: #333333;
     color: #cccccc; }
@@ -218,3 +250,6 @@
 .ts-bottom-left {
   bottom: 10;
   left: 10; }
+
+.ts-remove {
+  display: none; }

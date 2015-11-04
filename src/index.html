@@ -3,10 +3,11 @@
 <script src="/angular-toastino.js"></script>
 <!-- endinject -->
 <link rel="stylesheet" href="/styles.css" media="screen" title="no title" charset="utf-8">
-<div class="" ng-app="mexassi.toastino">
-  <toastino toastino="ts-default"
+<div class="" ng-app="mexassi.toastino" ng-controller="toastinoCtrl">
+  <!-- <toastino toastino="ts-default"
             position="ts-top-right"
             message="message"
-            dismiss="true"></toastino>
-<button ng-click="setMessage()">trigger</button>
+            dismiss="true"></toastino> -->
+  <toastino toastinos="toastMessages"></toastino>
+<button ng-click="createToastino()">trigger</button>
 </div>

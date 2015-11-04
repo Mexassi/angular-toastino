@@ -58,38 +58,23 @@ describe('Angular Toastino', function () {
     });
   });
 
-  xdescribe('toastinoService', function () {
-    var Toastino, toastinoService, $timeout;
+  describe('toastinoService', function () {
+    var Toastino, toastinoService;
 
     beforeEach(module('mexassi.toastino'));
 
-    beforeEach(inject(function(_toastinoService_, _$timeout_, _Toastino_) {
+    beforeEach(inject(function(_toastinoService_, _Toastino_) {
         Toastino = _Toastino_;
-        $timeout = _$timeout_;
         toastinoService = _toastinoService_;
     }));
 
-    it('should have an empty array of toastino messages when on init', function () {
-      expect(toastinoService.toastinos.length).toBe(0);
+    it('should create the tostino object if the parameter has the necessary properties', function() {
+      spyOn(toastinoService, 'buildToastino');
+      var object = {classValue: 'ts-default', position: 'ts-top-right', message:'bla'};
+      toastinoService.setToastino(object);
+      expect(toastinoService.buildToastino).toHaveBeenCalled();
     });
 
-    it('should add a new Toastino to the array', function() {
-      var toastino = new Toastino('ts-default', 'ts-top-right');
-      toastino.autoDelay = false;
-      toastino.setMessage('message');
-      toastinoService.add(toastino);
-      expect(toastinoService.toastinos.length).toBe(1);
-    });
-
-    it('should remove a toastino from the list when it has been dismissed', function () {
-      var toastino = new Toastino('ts-default', 'ts-top-right');
-      toastino.autoDelay = false;
-      toastino.setMessage('message');
-      toastinoService.add(toastino);
-      expect(toastinoService.toastinos.length).toBe(1);
-      toastino.dismiss();
-      expect(toastinoService.toastinos.length).toBe(0);
-    });
 
   });
 });

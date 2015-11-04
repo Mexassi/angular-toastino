@@ -17,6 +17,17 @@ toastino.factory('Toastino', function ($timeout) {
     this.className = null;
     this.autoDismiss = false;
     this.delay = 3700;
+    this.observer = null;
+  };
+
+  Toastino.prototype.registerListener = function (listener) {
+      this.observer = listener;
+  };
+
+  Toastino.prototype.broadcastChanges = function () {
+    if (this.observer.update instanceof Function) {
+      this.observer.update(this);
+    }
   };
 
   Toastino.prototype.manualDismiss = function () {
@@ -49,6 +60,10 @@ toastino.factory('Toastino', function ($timeout) {
 
   Toastino.prototype.dismiss = function () {
     this.className += ' ' + Toastino.DISMISS;
+    var self = this;
+    $timeout(function () {
+    self.broadcastChanges(this);
+    }, 350);
   };
 
   Toastino.DISMISS = 'ts-dismiss';
@@ -56,51 +71,88 @@ toastino.factory('Toastino', function ($timeout) {
   return Toastino;
 });
 
-toastino.directive('toastino', function (Toastino) {
-  return {
-    restrict: 'EA',
-    compile: function (tElement, tAttrs, transclude) {
-        var attributes = ['toastino', 'position', 'message', 'dismiss'];
-        function _validateAttributes() {
-            for (var i = 0; i < attributes.length; i++) {
-                if (tAttrs[attributes[i]] === undefined) {
-                    throw new TypeError('Missing required attribute: ' + attributes[i]);
-                }
-            }
-        }
-        _validateAttributes();
-        var className = tAttrs.toastino;
-        var position = tAttrs.position;
-        var message = tAttrs.message;
-        var autoDismiss = tAttrs.dismiss;
-        var toast = new Toastino(className, position);
-        toast.autoDismiss = (autoDismiss === 'true');
-        toast.setMessage(message);
-      if (toast.message === '') {
-        tElement.html('');
-      } else {
-        tElement.html('<div class="{{toast.className}}">' +
-        '<span ng-bind="'+message+'"></span>' +
-        '<button class="ts-button" ng-click="toast.dismiss()">x</button>' +
-        '</div>');
-      }
-      return function (scope, element, attrs) {
-        scope.setMessage = function () {
-          scope.message = 'new notification at: ' + new Date();
-        };
-        scope.message = ' Hello I am Angular-toastino!';
-          attrs.$observe('message', function (value) {
-             message = value;
-          });
-             scope.$watch(message, function() {
-                toast.setMessage(message);
-            }, true);
-        if (toast instanceof Toastino || toast === null) {
-          scope.toast = toast;
-        } else {
-          throw new TypeError('invalid instance: the attribute must be a Toastino instance');
-        }
-      };
+toastino.factory('toastinoService', function(Toastino) {
+  var ToastinoService = function () {
+    //array of toastino
+    this.toastinoMessages = [];
+  };
+
+  ToastinoService.prototype.update = function (toastino) {
+    if (toastino instanceof Toastino) {
+      this.remove(toastino);
     }
+  };
+
+  ToastinoService.prototype.remove = function(toastino) {
+    for (var i = 0; i < this.toastinoMessages.length; i++) {
+      if (toastino === this.toastinoMessages[i]) {
+        this.toastinoMessages.splice(i, 1);
+        break;
+      }
+    }
+  };
+
+  ToastinoService.prototype.buildToastino = function (object) {
+    var toastino = new Toastino(object.classValue, object.position);
+    if (object.autoDismiss !== undefined) {
+      toastino.autoDismiss = !toastino.autoDismiss;
+    }
+    toastino.registerListener(this);
+    toastino.setMessage(object.message);
+    this.toastinoMessages.unshift(toastino);
+  };
+
+  ToastinoService.prototype.setToastino = function (object) {
+    if (object.classValue !== undefined && object.position !== undefined && object.message !== undefined) {
+      this.buildToastino(object);
+    } else {
+      throw new TypeError('The object must have properties: classValue, position, message');
+    }
+  };
+
+  return new ToastinoService();
+});
+
+toastino.directive('toastino', function () {
+  return {
+    restrict: 'E',
+    scope: {
+      toastinos: '='
+    },
+    template:
+    '<div class="ts-container">' +
+    '<div ng-repeat="toast in toastinos" class="{{toast.className}}">' +
+    '<span>{{toast.message}}</span>' +
+    '<button class="ts-button" ng-click="toast.dismiss()">x</button>' +
+    '</div>' +
+    '</div>',
+  };
+});
+
+toastino.controller('toastinoCtrl', function (toastinoService, $scope) {
+  var vm = this;
+  $scope.toastMessages = toastinoService.toastinoMessages;
+  var classValues = ['ts-default', 'ts-success', 'ts-danger', 'ts-warning'];
+  var messages = [
+    'Hello I am Angular-toastino',
+    'You can use me to display toast messages',
+    'Just inject toastinoService in your controller',
+    'You can install me via bower install angular-toastino',
+  ];
+
+  $scope.randomNumber = function () {
+    var number = Math.floor(Math.random() * 4) + 1;
+    return number;
+  };
+
+  $scope.createToastino = function () {
+    var object = {
+      classValue: classValues[$scope.randomNumber() - 1],
+      position: 'ts-top-right',
+      message: messages[$scope.randomNumber() - 1],
+      autoDismiss: true
+    };
+    toastinoService.setToastino(object);
+    console.warn($scope.toastMessages);
   };
 });

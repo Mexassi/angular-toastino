@@ -110,14 +110,17 @@ $percentage: 20%;
 @keyframes bounceOut{
   0% {
     opacity:1;
+    display: block;
     transform:  scaleX(1.00) scaleY(1.00) ;
   }
   25% {
     opacity:1;
+    display: block;
     transform:  scaleX(0.95) scaleY(0.95) ;
   }
   50% {
     opacity:1;
+    display: block;
     transform:  scaleX(1.10) scaleY(1.10) ;
   }
   100% {
@@ -129,14 +132,17 @@ $percentage: 20%;
 @-moz-keyframes bounceOut{
   0% {
     opacity:1;
+    display: block;
     -moz-transform:  scaleX(1.00) scaleY(1.00) ;
   }
   25% {
     opacity:1;
+    display: block;
     -moz-transform:  scaleX(0.95) scaleY(0.95) ;
   }
   50% {
     opacity:1;
+    display: block;
     -moz-transform:  scaleX(1.10) scaleY(1.10) ;
   }
   100% {
@@ -148,14 +154,17 @@ $percentage: 20%;
 @-webkit-keyframes bounceOut {
   0% {
     opacity:1;
+    display: block;
     -webkit-transform:  scaleX(1.00) scaleY(1.00) ;
   }
   25% {
     opacity:1;
+    display: block;
     -webkit-transform:  scaleX(0.95) scaleY(0.95) ;
   }
   50% {
     opacity:1;
+    display: block;
     -webkit-transform:  scaleX(1.10) scaleY(1.10) ;
   }
   100% {
@@ -167,14 +176,17 @@ $percentage: 20%;
 @-o-keyframes bounceOut {
   0% {
     opacity:1;
+    display: block;
     -o-transform:  scaleX(1.00) scaleY(1.00) ;
   }
   25% {
     opacity:1;
+    display: block;
     -o-transform:  scaleX(0.95) scaleY(0.95) ;
   }
   50% {
     opacity:1;
+    display: block;
     -o-transform:  scaleX(1.10) scaleY(1.10) ;
   }
   100% {
@@ -186,14 +198,17 @@ $percentage: 20%;
 @-ms-keyframes bounceOut {
   0% {
     opacity:1;
+    display: block;
     -ms-transform:  scaleX(1.00) scaleY(1.00) ;
   }
   25% {
     opacity:1;
+    display: block;
     -ms-transform:  scaleX(0.95) scaleY(0.95) ;
   }
   50% {
     opacity:1;
+    display: block;
     -ms-transform:  scaleX(1.10) scaleY(1.10) ;
   }
   100% {
@@ -201,14 +216,31 @@ $percentage: 20%;
     -ms-transform:  scaleX(0.30) scaleY(0.30) ;
   }
 }
+.ts-container {
+  position: relative;
+  float: right;
+  right: 0px;
+  z-index: 7500;
+  max-width: 390px;
+  padding: 5px;
+  text-align: right;
+}
+
 .ts-toastino {
   @extend .fade-in-down;
+  text-align: right;
   font-family: Helvetica;
   font-weight: 200;
   border-radius: 3px;
   padding: 15px;
-  position: fixed;
-  z-index: 5000;
+  display: inline-block;
+  margin: 5px;
+  position: relative;
+  z-index: 9000;
+  span {
+    display: inline-block;
+    max-width: 85%;
+  }
 }
 
 .ts-danger{
@@ -249,6 +281,8 @@ $percentage: 20%;
   border: 1px solid black;
   background: inherit;
   cursor: pointer;
+  display: inline-block;
+  vertical-align: top;
   &:hover {
     background: lighten(black, $percentage);
     color: darken(white, $percentage);
@@ -288,4 +322,8 @@ $percentage: 20%;
 .ts-bottom-left {
   bottom: 10;
   left: 10;
+}
+
+.ts-remove {
+  display: none;
 }
