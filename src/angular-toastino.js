@@ -1,5 +1,5 @@
 /*!
-* angular-toastino v1.0.3
+* angular-toastino v0.0.7
 * https://github.com/Mexassi/angular-toastino
 * Copyright (c) 2015 Massimo Presta
 * License: MIT

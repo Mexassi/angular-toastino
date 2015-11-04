@@ -3,7 +3,7 @@
   "authors": [
     "Mexassi <mexassi@hotmail.it>"
   ],
-  "version": "1.0.3",
+  "version": "0.0.7",
   "description": "create custom toast messages",
   "main": "angular-toastino.js",
   "moduleType": [],
