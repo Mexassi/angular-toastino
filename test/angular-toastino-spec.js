@@ -18,7 +18,7 @@ describe('Angular Toastino', function () {
     it('should set the class value with the position when defined', function () {
       var toast = new Toastino('warning');
       toast.setMessage('');
-      expect(toast.className).toBe('warning ts-top-right');
+      expect(toast.className).toContain('warning ts-top-right');
     });
 
     it('should clear the message value', function () {
@@ -70,14 +70,15 @@ describe('Angular Toastino', function () {
     it('should create the tostino object if the parameter has the necessary properties', function() {
       spyOn(toastinoService, 'buildToastino');
       var object = {classValue: 'ts-default', message:'bla'};
-      toastinoService.setToastino(object);
+      toastinoService.makeToast(object);
       expect(toastinoService.buildToastino).toHaveBeenCalled();
     });
 
     it('should build a toastino and add it to the toastinoMessages array', function () {
       expect(toastinoService.toastinoMessages.length).toBe(0);
       var object = {classValue: 'ts-default', message:'bla'};
-      toastinoService.buildToastino(object);
+      var toastino = toastinoService.buildToastino(object);
+      toastinoService.popToast(toastino);
       expect(toastinoService.toastinoMessages.length).toBe(1);
       expect(toastinoService.toastinoMessages[0].message).toEqual(object.message);
     });

@@ -3,7 +3,7 @@
   "authors": [
     "Mexassi <mexassi@hotmail.it>"
   ],
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "create custom toast messages",
   "main": "angular-toastino.js",
   "moduleType": [],
@@ -20,6 +20,7 @@
     "angular-mocks": "~1.4.7"
   },
   "dependencies": {
-    "angular": "~1.4.7"
+    "angular": "~1.4.7",
+    "bootstrap": "~3.3.5"
   }
 }

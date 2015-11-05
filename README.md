@@ -11,19 +11,19 @@ var myApp = angular.module('myApp', ['mexassi.toastino']);
 ## How to use it
 Inject toastino service into your controller and set the array of toast messages:
 ```js
-myApp.controller('myController', function($scope, toastinoService) {
-  $scope.toastinoMessages = toastinoService.toastinoMessages;
+myApp.controller('myController', function(toastinoService) {
+
 });
 ```
-Create a toastino message by calling the set method passing an anonymous object:
+Create a toastino message passing the message value and a string value for the delay length:
 ```js
-var object = {
-  classValue: 'ts-default',
-  message: 'New notification',
-  autoDismiss: true
-};
+myApp.controller('myController', function(toastinoService) {
+  // this will create a toast message with a long delay.
+  toastinoService.makeInfoToast('your custom message', 'long');
 
-toastinoService.setToastino(object);
+  // this will create a toast message with a short delay.
+  toastinoService.makeWarningToast('your custom alert');
+});
 ```
 The classValue and message properties are required; the autoDismiss property is optional, it is set to false by default.
 
@@ -31,15 +31,17 @@ Pass the parameters into the directive as in the example:
 
 ```html
 <div ng-app="myApp" ng-controller="myController">
-  <toastino toastinos="toastinoMessages"></toastino>
+  <toastino></toastino>
 </div>
 ```
-## Available css classes
+## Available methods
+The methods take only two parameters: the message string value and a delayLength.
+The delayLength argument can be set to ```'long'``` for a longer delay, if not the delay is short.
 
-- ts-success
-- ts-warning
-- ts-danger
-- ts-default
+- toastinoService.makeInfoToast(message, delayLength);
+- toastinoService.makeWarningToast(message, delayLength);
+- toastinoService.makeDangerToast(message, delayLength);
+- toastinoService.makeSuccessToast(message, delayLength);
 
-**LICENSE**
+## LICENSE
 MIT

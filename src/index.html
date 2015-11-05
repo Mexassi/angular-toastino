@@ -1,10 +1,19 @@
+<audio id="xyz" src="sfx.wav" preload="auto"></audio>
 <!-- inject:js -->
 <!-- <script src="/angular.min.js"></script> -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
 <script src="/angular-toastino.js"></script>
 <!-- endinject -->
 <link rel="stylesheet" href="/styles.css" media="screen" title="no title" charset="utf-8">
-<div class="" ng-app="mexassi.toastino" ng-controller="toastinoCtrl">
-  <toastino toastinos="toastMessages"></toastino>
-<button class="ts-trigger-btn" ng-click="createToastino()">trigger</button>
+<link rel="stylesheet" href="/bootstrap.css" media="screen" title="no title" charset="utf-8">
+
+<div class="" ng-app="mexassi.toastino" ng-controller="toastinoCtrl as toaster">
+<toastino></toastino>
+<div class="container">
+  <div class="jumbotron">
+    <h2>Angular-toastino</h1>
+    <br>
+    <button class="btn btn-primary" ng-click="toaster.createToastino()">create toast</button>
+  </div>
+</div>
 </div>

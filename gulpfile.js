@@ -37,7 +37,8 @@ gulp.task('sass:watch', function () {
 
 gulp.task('serve', [ 'inject', 'sass:watch'], function () {
   browserSync.init({
-    server: './src'
+    server: './src',
+    port: '3867'
   });
 });
 
