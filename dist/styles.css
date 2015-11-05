@@ -168,7 +168,8 @@
     -ms-transform: scaleX(0.3) scaleY(0.3); } }
 
 .ts-container {
-  position: relative;
+  position: fixed;
+  opacity: 0.80;
   float: right;
   right: 0px;
   z-index: 7500;
