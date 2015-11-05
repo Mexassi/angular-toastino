@@ -37,11 +37,11 @@ Pass the parameters into the directive as in the example:
 ## Available methods
 The methods take only two parameters: the message string value and a delayLength.
 The delayLength argument can be set to ```'long'``` for a longer delay, if not the delay is short.
-
-- toastinoService.makeInfoToast(message, delayLength);
-- toastinoService.makeWarningToast(message, delayLength);
-- toastinoService.makeDangerToast(message, delayLength);
-- toastinoService.makeSuccessToast(message, delayLength);
-
+```js
+toastinoService.makeInfoToast(message, delayLength);
+toastinoService.makeWarningToast(message, delayLength);
+toastinoService.makeDangerToast(message, delayLength);
+toastinoService.makeSuccessToast(message, delayLength);
+```
 ## LICENSE
 MIT
