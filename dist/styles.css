@@ -168,8 +168,9 @@
     -ms-transform: scaleX(0.3) scaleY(0.3); } }
 
 .ts-container {
+  margin-top: -10px;
   position: fixed;
-  opacity: 0.80;
+  opacity: 0.90;
   float: right;
   right: 0px;
   z-index: 7500;
@@ -182,7 +183,7 @@
   font-family: Helvetica;
   font-weight: 200;
   border-radius: 3px;
-  padding: 15px;
+  padding: 10px;
   display: inline-block;
   margin: 5px;
   position: relative;
