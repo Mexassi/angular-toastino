@@ -228,6 +228,20 @@ $percentage: 20%;
   text-align: right;
 }
 
+.ts-container-bottom-center {
+  text-align: center;
+  position: absolute;
+  opacity: 0.90;
+  z-index: 7500;
+  max-width: 390px;
+  padding: 5px;
+  bottom: 11%;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .ts-toastino {
   @extend .fade-in-down;
   text-align: right;
