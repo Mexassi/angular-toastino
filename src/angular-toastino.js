@@ -115,13 +115,6 @@ toastino.factory('toastinoService', function(Toastino) {
     }
   };
 
-  ToastinoService.prototype.playAlert = function () {
-    var element = document.getElementById('xyz');
-    if (element !== undefined) {
-      element.play();
-    }
-  };
-
   ToastinoService.prototype.buildToastino = function (object) {
     var toastino = new Toastino(object.classValue);
 
