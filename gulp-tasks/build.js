@@ -49,12 +49,8 @@ gulp.task('libs', function() {
   .pipe(gulp.dest(gulp.paths.base + '/dist/src', { overwrite: false }));
 });
 
-// gulp.task('build', ['html', 'images', 'fonts', 'extras'], function () {
-//   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
-// });
-//
-// gulp.task('deploy', ['build'], function() {
-//   return gulp.src('dist')
-//     .pipe($.subtree())
-//     .pipe($.clean());
-// });
+gulp.task('deploy', ['build'], function() {
+  return gulp.src(gulp.paths.base + '/dist/src')
+    .pipe($.subtree())
+    .pipe($.clean());
+});
