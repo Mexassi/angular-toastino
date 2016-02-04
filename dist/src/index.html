@@ -1,0 +1,90 @@
+<!-- inject:js -->
+<!-- <script src="/angular.min.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+<script src="angular-toastino.js"></script>
+<!-- endinject -->
+<link rel="stylesheet" href="styles.css" media="screen" title="no title" charset="utf-8">
+<link rel="stylesheet" href="bootstrap.css" media="screen" title="no title" charset="utf-8">
+
+<div class="" ng-app="mexassi.toastino" ng-controller="toastinoCtrl as toaster">
+  <toastino></toastino>
+  <toastino containerclass="toaster.containerClass" toastinos="toaster.test"></toastino>
+  <div class="container">
+    <div class="jumbotron">
+      <h2>Angular-toastino</h1>
+      <p class="small">Developed by <a href="http://mexassi.github.io/resumeapp/" target="blank">mexassi</a></p>
+      <button class="btn btn-primary" ng-click="toaster.createToastino()">create default toast</button>
+      <button class="btn btn-info" ng-click="toaster.createCustomToastino()">create custom toast</button>
+      <button class="btn btn-default" ng-click="toaster.toggleDocumentation()">documentation</button>
+    </div>
+    <div class="ts-slide-wrapper">
+      <div ng-class="'ts-slide ' + ((toaster.documentation === toaster.SHOW) ? ' ts-slide-after ' : '')">
+        <h1>Create custom toast messages for your angular app</h1>
+        <h2><a id="Install_1"></a>Install</h2>
+        <pre><code class="language-sh">$ bower install angular-toastino --save</code></pre>
+        <p>Include the css file and the module in your app:</p>
+        <pre><code class="language-js"><span class="hljs-keyword">var</span> myApp = angular.module(<span class="hljs-string">'myApp'</span>, [<span class="hljs-string">'mexassi.toastino'</span>]);</code></pre>
+        <h2><a id="How_to_use_it_9"></a>How to use it</h2>
+        <p>Inject toastino service into your controller and set the array of toast messages:</p>
+        <pre><code class="language-js">myApp.controller(<span class="hljs-string">'myController'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">toastinoService</span>) </span>{
+
+});</code></pre>
+      <p>Create a toastino message passing the message value and a string value for the delay length:</p>
+      <pre><code class="language-js">myApp.controller(<span class="hljs-string">'myController'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">toastinoService</span>) </span>{
+    <span class="hljs-comment">// this will create a toast message with a long delay.</span>
+    toastinoService.makeInfoToast(<span class="hljs-string">'your custom message'</span>, <span class="hljs-string">'long'</span>);
+
+    <span class="hljs-comment">// this will create a toast message with a short delay.</span>
+    toastinoService.makeWarningToast(<span class="hljs-string">'your custom alert'</span>);
+});</code></pre>
+    <p>The classValue and message properties are required; the autoDismiss property is optional, it is set to false by default.</p>
+    <p>Pass the parameters into the directive as in the example:</p>
+    <pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">ng-app</span>=<span class="hljs-value">"myApp"</span> <span class="hljs-attribute">ng-controller</span>=<span class="hljs-value">"myController"</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-title">toastino</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">toastino</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></code></pre>
+    <h2><a id="Available_methods_35"></a>Available methods</h2>
+    <p>The methods take only two parameters: the message string value and a delayLength. The delayLength argument can be set to <code>'long'</code> for a longer delay, if not the delay is short.</p>
+    <pre><code class="language-js">toastinoService.makeInfoToast(<span class="hljs-string">'message'</span>, delayLength);
+toastinoService.makeWarningToast(<span class="hljs-string">'message'</span>, delayLength);
+toastinoService.makeDangerToast(<span class="hljs-string">'message'</span>, delayLength);
+toastinoService.makeSuccessToast(<span class="hljs-string">'message'</span>, delayLength);</code></pre>
+    <h2><a id="Customising_your_Toastino_45"></a>Customising your Toastino</h2>
+    <p>You can now show your toast messages at the bottom of the screen by passing a containerclass property into the toastino directive. When the property is null or undefined the your toast messages will be displayed on the top right corner as per default
+      settings.</p>
+      <pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">ng-app</span>=<span class="hljs-value">"myApp"</span> <span class="hljs-attribute">ng-controller</span>=<span class="hljs-value">"myController"</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-title">toastino</span> <span class="hljs-attribute">containerclass</span>=<span class="hljs-value">"myController.containerClass"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">toastino</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></code></pre>
+      <p>You can also have multiple instances of the toastino directive so that one will display the messages on the top right corner and the other at the bottom of the screen. If you do so, to avoid duplicate messages you should declare the toastino properties
+        into your second instance.</p>
+        <pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">ng-app</span>=<span class="hljs-value">"myApp"</span> <span class="hljs-attribute">ng-controller</span>=<span class="hljs-value">"myController"</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-title">toastino</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">toastino</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-title">toastino</span> <span class="hljs-attribute">containerclass</span>=<span class="hljs-value">"myController.containerClass"</span> <span class="hljs-attribute">toastinos</span>=<span class="hljs-value">"myController.toastinos"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">toastino</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"btn btn-info"</span> <span class="hljs-attribute">ng-click</span>=<span class="hljs-value">"myController.createCustomToastino()"</span>&gt;</span>Toast<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></code></pre>
+        <p>The first instance will display the messages in the top right corner of the screen that are generated using the <a href="#Available_methods_35">available methods</a>. The second instance will need to use a customised building method.</p>
+        <pre><code class="language-js">myApp.controller(<span class="hljs-string">'myController'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">toastinoService</span>) </span>{
+    <span class="hljs-keyword">var</span> _this = <span class="hljs-keyword">this</span>;
+    _this.toastinos = [];
+    <span class="hljs-keyword">var</span> message = <span class="hljs-string">'Hey! Thanks for using Toastino!'</span>;
+    _this.createCustomToastino = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+       <span class="hljs-keyword">var</span> toastino = toastinoService.buildToastino({
+          classValue: toastinoService.TOAST_CLASS_DANGER,
+          message: message,
+          autoDismiss: <span class="hljs-literal">false</span>,
+          array: _this.toastinos
+        });
+        _this.test.unshift(toastino);
+    };
+});</code></pre>
+      <p>The object passed as a parameter must have a message, a classValue and the array property. The array property is important so toastino knows that when dismissing a custom toast message this has to be removed from its array.</p>
+      <h2><a id="Available_css_classes_81"></a>Available css classes</h2>
+      <pre><code class="language-js">toastinoService.TOAST_CLASS_DANGER;
+toastinoService.TOAST_CLASS_WARNING;
+toastinoService.TOAST_CLASS_SUCCESS;
+toastinoService.TOAST_CLASS_INFO;</code></pre>
+      <h4><a id="LICENSE_88"></a>LICENSE</h4>
+      <p>MIT</p>
+    </div>
+    </div>
+  </div>
+</div>
