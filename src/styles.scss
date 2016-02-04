@@ -11,6 +11,10 @@ $ts-default-bg: #8AF3FF;
 
 $percentage: 20%;
 
+// * {
+//   border-radius: 0px !important;
+// }
+
 // mixins
 .fade-in-down{
   animation: fadeInDown ease 350ms;
@@ -219,7 +223,7 @@ $percentage: 20%;
 .ts-container {
   margin-top: -10px;
   position: fixed;
-  opacity: 0.90;
+  opacity: 0.97;
   float: right;
   right: 0px;
   z-index: 7500;
@@ -230,10 +234,10 @@ $percentage: 20%;
 
 .ts-container-bottom-center {
   text-align: center;
-  position: absolute;
+  position: fixed;
   opacity: 0.90;
   z-index: 7500;
-  max-width: 390px;
+  max-width: 700px;
   padding: 5px;
   bottom: 11%;
   left: 0;
@@ -249,7 +253,7 @@ $percentage: 20%;
   font-weight: 200;
   border-radius: 3px;
   padding: 10px;
-  display: inline-block;
+  display: inline-table;
   margin: 5px;
   position: relative;
   z-index: 9000;
@@ -355,3 +359,24 @@ $percentage: 20%;
     background: darken($ts-default, $percentage);
   }
 };
+
+.ts-slide-wrapper {
+  // overflow: scroll;
+  position: relative;
+  overflow: hidden;
+}
+
+.ts-slide {
+  position: fixed;
+  z-index: 1000;
+  right: -2000px;
+  width: 100%;
+  padding: 10px;
+  transition: .7s;
+}
+
+.ts-slide-after {
+  transition: .7s;
+  right: 0;
+  position: relative;
+}

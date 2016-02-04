@@ -168,7 +168,9 @@
     -ms-transform: scaleX(0.3) scaleY(0.3); } }
 
 .ts-container {
-  position: relative;
+  margin-top: -10px;
+  position: fixed;
+  opacity: 0.97;
   float: right;
   right: 0px;
   z-index: 7500;
@@ -176,13 +178,26 @@
   padding: 5px;
   text-align: right; }
 
+.ts-container-bottom-center {
+  text-align: center;
+  position: fixed;
+  opacity: 0.90;
+  z-index: 7500;
+  max-width: 700px;
+  padding: 5px;
+  bottom: 11%;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto; }
+
 .ts-toastino, .ts-danger, .ts-warning, .ts-success, .ts-default, .ts-dismiss {
   text-align: right;
   font-family: Helvetica;
   font-weight: 200;
   border-radius: 3px;
-  padding: 15px;
-  display: inline-block;
+  padding: 10px;
+  display: inline-table;
   margin: 5px;
   position: relative;
   z-index: 9000; }
@@ -263,3 +278,20 @@
   cursor: pointer; }
   .ts-trigger-btn:hover {
     background: #24e9ff; }
+
+.ts-slide-wrapper {
+  position: relative;
+  overflow: hidden; }
+
+.ts-slide {
+  position: fixed;
+  z-index: 1000;
+  right: -2000px;
+  width: 100%;
+  padding: 10px;
+  transition: .7s; }
+
+.ts-slide-after {
+  transition: .7s;
+  right: 0;
+  position: relative; }

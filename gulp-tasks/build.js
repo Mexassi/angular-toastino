@@ -16,3 +16,13 @@ gulp.task('uglify', function () {
   .pipe($.uglify())
   .pipe(gulp.dest(distFolder));
 });
+
+// gulp.task('build', ['html', 'images', 'fonts', 'extras'], function () {
+//   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
+// });
+//
+// gulp.task('deploy', ['build'], function() {
+//   return gulp.src('dist')
+//     .pipe($.subtree())
+//     .pipe($.clean());
+// });

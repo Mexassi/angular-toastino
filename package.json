@@ -36,7 +36,9 @@
   },
   "dependencies": {
     "browser-sync": "^2.9.11",
+    "clean": "^4.0.2",
     "gulp-inject": "^3.0.0",
-    "gulp-sass": "^2.1.0"
+    "gulp-sass": "^2.1.0",
+    "subtree": "0.0.9"
   }
 }

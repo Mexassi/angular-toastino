@@ -18,6 +18,7 @@ toastino.factory('Toastino', function ($timeout) {
     this.autoDismiss = false;
     this.delay = 3700;
     this.observer = null;
+    this.array = undefined;
   };
 
   Toastino.prototype.registerListener = function (listener) {
@@ -76,7 +77,15 @@ toastino.factory('toastinoService', function(Toastino) {
   var ToastinoService = function () {
     this.toastinoMessages = [];
     this.observer = undefined;
+    this.config = {
+      containerClass: 'ts-container'
+    }
   };
+
+  ToastinoService.prototype.TOAST_CLASS_DANGER = 'alert alert-danger';
+  ToastinoService.prototype.TOAST_CLASS_WARNING = 'alert alert-warning';
+  ToastinoService.prototype.TOAST_CLASS_SUCCESS = 'alert alert-success';
+  ToastinoService.prototype.TOAST_CLASS_INFO = 'alert alert-info';
 
   ToastinoService.prototype.registerListener = function(observer){
     this.observer = observer;
@@ -92,14 +101,15 @@ toastino.factory('toastinoService', function(Toastino) {
 
   ToastinoService.prototype.update = function (toastino) {
     if (toastino instanceof Toastino) {
-      this.remove(toastino);
+      this.remove(toastino, toastino.array);
     }
   };
 
-  ToastinoService.prototype.remove = function(toastino) {
-    for (var i = 0; i < this.toastinoMessages.length; i++) {
-      if (toastino === this.toastinoMessages[i]) {
-        this.toastinoMessages.splice(i, 1);
+  ToastinoService.prototype.remove = function(toastino, array) {
+    var toastinos = (array !== undefined) ? array : this.toastinoMessages;
+    for (var i = 0; i < toastinos.length; i++) {
+      if (toastino === toastinos[i]) {
+        toastinos.splice(i, 1);
         break;
       }
     }
@@ -121,6 +131,10 @@ toastino.factory('toastinoService', function(Toastino) {
 
     if (object.delay !== undefined) {
       toastino.delay = object.delay;
+    }
+
+    if (object.array !== undefined) {
+      toastino.array = object.array;
     }
 
     toastino.registerListener(this);
@@ -183,23 +197,37 @@ toastino.factory('toastinoService', function(Toastino) {
 toastino.directive('toastino', function () {
   return {
     restrict: 'E',
+    scope: {
+      containerclass: '@',
+      toastinos: '='
+    },
     template:
-    '<div class="ts-container">' +
-      '<div ng-repeat="toast in toastinoController.toastinos" class="alert-dismissible {{toast.className}}">' +
-        '<button type="button" class="close" aria-label="Close" ng-click="toast.dismiss()"><span aria-hidden="true">&times;</span></button>' +
-        '{{toast.message}}' +
+    '<div ng-class="(containerclass) ? \' ts-container-bottom-center \' : \'ts-container\'">' +
+      '<div class="row" ng-repeat="toast in toastinoController.toastinos">' +
+        '<div class="alert-dismissible {{toast.className}}">' +
+          '<button type="button" class="close" aria-label="Close" ng-click="toast.dismiss()"><span aria-hidden="true">&times;</span></button>' +
+          '{{toast.message}}' +
+        '</div>' +
       '</div>' +
     '</div>',
-    controller: function toastinoController(toastinoService) {
+    controller: function toastinoController(toastinoService, $scope) {
       var vm = this;
       vm.init = function(){
-        vm.toastinos = [];
+        if ($scope.toastinos) {
+          vm.toastinos = $scope.toastinos;
+        } else {
+          vm.toastinos = [];
+        }
         toastinoService.registerListener(vm);
         vm.toastChanged();
       };
 
       vm.toastChanged = function(){
-        vm.toastinos = toastinoService.toastinoMessages;
+        if (!$scope.toastinos) {
+          vm.toastinos = toastinoService.toastinoMessages;
+
+        } else {
+        }
       };
 
       vm.init();
@@ -219,23 +247,45 @@ toastino.controller('toastinoCtrl', function (toastinoService) {
     'Just inject toastinoService in your controller',
     'You can install me via bower install angular-toastino',
   ];
+  var _this = this;
+  _this.containerClass = 'ts-container';
+  _this.test = [];
+  _this.SHOW = 1;
+  _this.HIDE = 0;
+  _this.documentation = _this.HIDE;
 
-  this.randomNumber = function () {
+  _this.randomNumber = function () {
     var number = Math.floor(Math.random() * 4) + 1;
     return number;
   };
 
-  this.createToastino = function () {
-    var callbackNumber = this.randomNumber() - 1;
-    var that = this;
+  _this.toggleDocumentation = function() {
+    _this.documentation = (_this.documentation === _this.SHOW) ? _this.HIDE : _this.SHOW;
+    console.log('toggling to ' , _this.documentation);
+  };
+
+  _this.createCustomToastino = function() {
+    var toastino = toastinoService.buildToastino({
+      classValue: 'alert alert-danger',
+      message: 'This is an error message! It won\'t disappear until you dismiss it!',
+      autoDismiss: false,
+      array: _this.test
+    });
+    _this.test.unshift(toastino);
+  };
+
+
+  _this.createToastino = function () {
+    var callbackNumber = _this.randomNumber() - 1;
+
     if (callbacks[callbackNumber] === 'makeInfoToast') {
-      toastinoService.makeInfoToast(messages[that.randomNumber() - 1]);
+      toastinoService.makeInfoToast(messages[_this.randomNumber() - 1]);
     } else if (callbacks[callbackNumber] === 'makeSuccessToast') {
-      toastinoService.makeSuccessToast(messages[that.randomNumber() - 1], 'long');
+      toastinoService.makeSuccessToast(messages[_this.randomNumber() - 1], 'long');
     } else if (callbacks[callbackNumber] === 'makeWarningToast') {
-      toastinoService.makeWarningToast(messages[that.randomNumber() - 1]);
+      toastinoService.makeWarningToast(messages[_this.randomNumber() - 1]);
     } else if (callbacks[callbackNumber] === 'makeDangerToast') {
-      toastinoService.makeDangerToast(messages[that.randomNumber() - 1], 'long');
+      toastinoService.makeDangerToast(messages[_this.randomNumber() - 1], 'long');
     }
   };
 });
