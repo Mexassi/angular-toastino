@@ -1,3 +1,6 @@
+.small {
+  font-size: 12px !important; }
+
 .fade-in-down, .ts-toastino, .ts-danger, .ts-warning, .ts-success, .ts-default, .ts-dismiss {
   animation: fadeInDown ease 350ms;
   animation-iteration-count: 1;
